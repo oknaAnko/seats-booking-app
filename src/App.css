@@ -1,5 +1,30 @@
+/* $top = 0  */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.seats-container {
+  margin: 0 auto;
+  position: relative;
+  width: 900px;
+  height: 600px;
+  /* border: 2px solid coral; */
+}
+
+.square {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+}
+
+.seat {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
 }
