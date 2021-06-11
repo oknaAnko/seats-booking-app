@@ -30,3 +30,8 @@ export const fetchSeats = () => dispatch => {
 };
 
 store.dispatch(fetchSeats());
+
+export const toggleChosenSeats = seatIds => ({
+    type: 'TOGGLE_CHOOSEN_SEATS',
+    payload: seatIds
+})

@@ -1,24 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { fetchSeats } from '../app/actions';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useLocation, useHistory } from 'react-router-dom';
+import { fetchSeats, toggleChosenSeats } from '../app/actions';
 
 import OneSeat from '../components/OneSeat';
-
 
 const SeatsPage = () => {
     const allSeats = useSelector(state => state.seats.seats);
     const isLoading = useSelector(state => state.seats.isLoading);
 
+    const dispatch = useDispatch();
+
+    const history = useHistory();
+
+    const notReservedSeats = allSeats.filter(seat => !seat.reserved);
+
     useEffect(() => {
-        fetchSeats()
+        fetchSeats();
+
+        if (!allSeats.length) {
+            return history.push("/");
+        }
+
+        const idsTable = [];
+
+        if (!closeSeats) {
+            for (let i = 0; i < seatsNumber; i++) {
+                const index = Math.floor(Math.random() * notReservedSeats.length);
+                idsTable.push(notReservedSeats[index].id);
+            }
+        }
+
+        dispatch(toggleChosenSeats(idsTable));
     }, []);
 
     const location = useLocation();
-    const seatsNumber = location.state.seatsNumber
-    const closeSeats = location.state.closeSeats
+    const seatsNumber = location.state.seatsNumber;
+    const closeSeats = location.state.closeSeats;
 
-    const seatsMatrix = allSeats.map(seat => <OneSeat key={seat.id} {...seat} />);
+    const seatsMatrix = allSeats.map(seat => <OneSeat key={seat.id} id={seat.id} />);
+
+    const handleSeatsSubmit = e => {
+        e.preventDefault();
+    }
+
 
     return (
         <div>SeatsPage
@@ -29,7 +54,7 @@ const SeatsPage = () => {
                     {seatsMatrix}
                 </div>
             }
-            <button type="submit">Rezerwuj</button>
+            <button type="submit" onClick={handleSeatsSubmit}>Rezerwuj</button>
         </div>
     );
 }
