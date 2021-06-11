@@ -21,7 +21,8 @@ export const fetchSeats = () => dispatch => {
     axios.get('http://localhost:3004/seats')
         .then(res => res.data)
         .then(seats => {
-            dispatch(seatsFetchedSuccess(seats))
+            const seatsWithChosenProperty = seats.map(seat => ({ ...seat, chosen: false }))
+            dispatch(seatsFetchedSuccess(seatsWithChosenProperty))
         })
         .catch(error => {
             dispatch(seatsFetchedFail(error))
