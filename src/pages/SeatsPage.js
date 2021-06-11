@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { fetchSeats } from '../app/actions';
 
 import OneSeat from '../components/OneSeat';
@@ -12,6 +13,10 @@ const SeatsPage = () => {
     useEffect(() => {
         fetchSeats()
     }, []);
+
+    const location = useLocation();
+    const seatsNumber = location.state.seatsNumber
+    const closeSeats = location.state.closeSeats
 
     const seatsMatrix = allSeats.map(seat => <OneSeat key={seat.id} {...seat} />);
 
