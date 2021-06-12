@@ -1,26 +1,38 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { Form, InputNumber, Button, Checkbox } from 'antd';
+
+const layout = {
+    labelCol: {
+        span: 8,
+    },
+    wrapperCol: {
+        span: 16,
+    },
+};
+const tailLayout = {
+    wrapperCol: {
+        offset: 8,
+        span: 16,
+    },
+};
 
 const HomePage = () => {
+    const [form] = Form.useForm();
     const [seatsNumber, setSeatsNumber] = useState('');
     const [closeSeats, setCloseSeats] = useState(false)
 
     const history = useHistory();
 
-    const handleChangeSeatsNumber = e => setSeatsNumber(e.target.value);
+    const handleChangeSeatsNumber = value => setSeatsNumber(value);
     const handleChangeCloseSeats = e => setCloseSeats(e.target.checked);
 
-    const handleOnSubmit = e => {
-        e.preventDefault();
+    const handleOnSubmit = ({ seatsNumber, closeSeats }) => {
+        console.log(seatsNumber, closeSeats);
 
         if (seatsNumber >= 5 && closeSeats) {
             alert(`Nie może być ${seatsNumber} miejsc obok siebie. Maksymalna liczba miejsc obok siebie wynosi 5.`);
-            return;
-        };
-
-        if (Boolean(!seatsNumber)) {
-            alert(`Proszę wybrać liczbę miejsc`);
             return;
         };
 
@@ -38,20 +50,39 @@ const HomePage = () => {
 
     return (
         <div className="wrapper">
-            <form onSubmit={handleOnSubmit} >
+            <Form
+                {...layout}
+                name="basic"
+                form={form}
+                initialValues={{
+                    remember: true,
+                }}
+                onFinish={handleOnSubmit}
+            >
+                <Form.Item
+                    label="Liczba miejsc:"
+                    type="number"
+                    name="seatsNumber"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Proszę wybrać liczbę miejsc',
+                        },
+                    ]}
+                >
+                    <InputNumber min={1} onChange={handleChangeSeatsNumber} value={seatsNumber} />
+                </Form.Item>
 
-                <label>Liczba miejsc:
-            <input type="number" value={seatsNumber} onChange={handleChangeSeatsNumber} />
-                </label>
+                <Form.Item {...tailLayout} name="closeSeats" valuePropName="checked">
+                    <Checkbox onChange={handleChangeCloseSeats}>"Czy miejsca mają być obok siebie?"</Checkbox>
+                </Form.Item>
 
-                <label> Czy miejsca mają być obok siebie?
-            <input type="checkbox" checked={closeSeats} onChange={handleChangeCloseSeats} />
-                </label>
-
-                <button>Rezerwuj</button>
-
-            </form>
-
+                <Form.Item {...tailLayout}>
+                    <Button type="primary" htmlType="submit">
+                        Wybierz miejsca
+                    </Button>
+                </Form.Item>
+            </Form>
         </div>
     );
 }

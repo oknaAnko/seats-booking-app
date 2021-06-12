@@ -46,7 +46,7 @@ const SeatsPage = () => {
 
 
     return (
-        <div>SeatsPage
+        <div>
             {isLoading
                 ? <p>Ładuję</p>
                 :
@@ -54,7 +54,12 @@ const SeatsPage = () => {
                     {seatsMatrix}
                 </div>
             }
-            <button type="submit" onClick={handleSeatsSubmit}>Rezerwuj</button>
+            <ul className="legend-container">
+                <li><span className="legend"></span>Miejsca dostępne</li>
+                <li><span className="legend"></span>Miejsca zarezerwowane</li>
+                <li><span className="legend"></span>Twój wybór</li>
+                <button className="btn-legend" type="submit" onClick={handleSeatsSubmit}>Rezerwuj</button>
+            </ul>
         </div>
     );
 }
