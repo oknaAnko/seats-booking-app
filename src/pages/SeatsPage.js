@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
-import { fetchSeats, toggleChosenSeats } from '../app/actions';
+import { fetchSeats, toggleChosenSeats, reserveSeats } from '../app/actions';
 
 import OneSeat from '../components/OneSeat';
 
@@ -40,8 +40,22 @@ const SeatsPage = () => {
 
     const seatsMatrix = allSeats.map(seat => <OneSeat key={seat.id} id={seat.id} />);
 
+    const chosenSeats = allSeats.filter(seat => seat.chosen)
+    const chosenSeatsIds = chosenSeats.map(seat => seat.id)
+
+
     const handleSeatsSubmit = e => {
         e.preventDefault();
+        dispatch(reserveSeats(chosenSeatsIds))
+
+        const location = {
+            pathname: '/podsumowanie',
+            state: {
+                chosenSeats
+            }
+        };
+
+        history.push(location);
     }
 
 

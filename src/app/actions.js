@@ -35,3 +35,8 @@ export const toggleChosenSeats = seatIds => ({
     type: 'TOGGLE_CHOOSEN_SEATS',
     payload: seatIds
 })
+
+export const reserveSeats = seatIds => ({
+    type: 'RESERVE_SEATS',
+    payload: seatIds
+})
