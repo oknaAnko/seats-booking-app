@@ -20,6 +20,15 @@ export const seatsReducer = (state = initialState, action) => {
                         ? { ...seat, chosen: !seat.chosen }
                         : seat
                 )
+            };
+        case 'RESERVE_SEATS':
+            return {
+                ...state,
+                seats: state.seats.map(seat =>
+                    action.payload.includes(seat.id)
+                        ? { ...seat, reserved: true }
+                        : seat
+                )
             }
         default:
             return state
