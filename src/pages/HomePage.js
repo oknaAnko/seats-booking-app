@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { Form, InputNumber, Button, Checkbox } from 'antd';
+import { Form, InputNumber, Button, Checkbox, notification } from 'antd';
 
 const layout = {
     labelCol: {
@@ -32,7 +32,13 @@ const HomePage = () => {
         console.log(seatsNumber, closeSeats);
 
         if (seatsNumber >= 5 && closeSeats) {
-            alert(`Nie może być ${seatsNumber} miejsc obok siebie. Maksymalna liczba miejsc obok siebie wynosi 5.`);
+
+            notification.info({
+                message: `Błąd`,
+                description: `Nie może być ${seatsNumber} miejsc obok siebie. Maksymalna liczba miejsc obok siebie wynosi 5.`,
+                placement: 'bottomRight'
+            });
+
             return;
         };
 
