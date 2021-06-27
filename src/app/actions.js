@@ -1,6 +1,13 @@
 import axios from 'axios';
 import { store } from './store';
 
+export const FETCH_SEATS_REQUEST = "FETCH_SEATS_REQUEST";
+export const FETCH_SEATS_SUCCESS = "FETCH_SEATS_SUCCESS";
+export const FETCH_SEATS_FAIL = "FETCH_SEATS_FAIL";
+export const TOGGLE_CHOOSEN_SEATS = "TOGGLE_CHOOSEN_SEATS";
+export const RESERVE_SEATS = "RESERVE_SEATS";
+
+
 const seatsFetchedRequest = () => ({
     type: 'FETCH_SEATS_REQUEST',
 });
