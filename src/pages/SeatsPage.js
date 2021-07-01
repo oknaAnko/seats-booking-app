@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
-import { fetchSeats, toggleChosenSeats, reserveSeats } from '../app/actions';
+import { toggleChosenSeats, reserveSeats } from '../app/actions';
 
 import OneSeat from '../components/OneSeat';
 
 const SeatsPage = () => {
     const allSeats = useSelector(state => state.seats.seats);
     const isLoading = useSelector(state => state.seats.isLoading);
+
+    const location = useLocation();
+    const seatsNumber = location.state.seatsNumber;
+    const closeSeats = location.state.closeSeats;
 
     const dispatch = useDispatch();
 
@@ -16,7 +20,6 @@ const SeatsPage = () => {
     const notReservedSeats = allSeats.filter(seat => !seat.reserved);
 
     useEffect(() => {
-        fetchSeats();
 
         if (!allSeats.length) {
             return history.push("/");
@@ -30,13 +33,9 @@ const SeatsPage = () => {
                 idsTable.push(notReservedSeats[index].id);
             }
         }
-
         dispatch(toggleChosenSeats(idsTable));
-    }, []);
 
-    const location = useLocation();
-    const seatsNumber = location.state.seatsNumber;
-    const closeSeats = location.state.closeSeats;
+    }, [dispatch]);
 
     const seatsMatrix = allSeats.map(seat => <OneSeat key={seat.id} id={seat.id} />);
 
@@ -77,5 +76,10 @@ const SeatsPage = () => {
         </div>
     );
 }
+
+SeatsPage.defaultProps = {
+    seatsNumber: 0,
+    closeSeats: false,
+};
 
 export default SeatsPage;
