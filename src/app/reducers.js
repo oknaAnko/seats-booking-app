@@ -1,3 +1,5 @@
+import { types } from './constants';
+
 const initialState = {
     isLoading: false,
     seats: [],
@@ -6,13 +8,13 @@ const initialState = {
 
 export const seatsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'FETCH_SEATS_REQUEST':
+        case types.FETCH_SEATS_REQUEST:
             return { ...state, isLoading: true };
-        case 'FETCH_SEATS_SUCCESS':
+        case types.FETCH_SEATS_SUCCESS:
             return { ...state, isLoading: false, seats: action.payload };
-        case 'FETCH_SEATS_FAIL':
+        case types.FETCH_SEATS_FAIL:
             return { ...state, isLoading: false, error: action.payload };
-        case 'TOGGLE_CHOOSEN_SEATS':
+        case types.TOGGLE_CHOSEN_SEATS:
             return {
                 ...state,
                 seats: state.seats.map(seat =>
@@ -21,7 +23,7 @@ export const seatsReducer = (state = initialState, action) => {
                         : seat
                 )
             };
-        case 'RESERVE_SEATS':
+        case types.RESERVE_SEATS:
             return {
                 ...state,
                 seats: state.seats.map(seat =>

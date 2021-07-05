@@ -80,7 +80,7 @@ const HomePage = () => {
                 </Form.Item>
 
                 <Form.Item {...tailLayout} name="closeSeats" valuePropName="checked">
-                    <Checkbox onChange={handleChangeCloseSeats}>"Czy miejsca mają być obok siebie?"</Checkbox>
+                    <Checkbox onChange={handleChangeCloseSeats}>Czy miejsca mają być obok siebie?</Checkbox>
                 </Form.Item>
 
                 <Form.Item {...tailLayout}>
