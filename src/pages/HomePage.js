@@ -1,96 +1,66 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
-import { Form, InputNumber, Button, Checkbox, notification } from 'antd';
-
-const layout = {
-    labelCol: {
-        span: 8,
-    },
-    wrapperCol: {
-        span: 16,
-    },
-};
-const tailLayout = {
-    wrapperCol: {
-        offset: 8,
-        span: 16,
-    },
-};
+import { fetchSeats } from "../app/actions";
+import { useDispatch } from "react-redux";
 
 const HomePage = () => {
-    const [form] = Form.useForm();
-    const [seatsNumber, setSeatsNumber] = useState('');
-    const [closeSeats, setCloseSeats] = useState(false)
+  const dispatch = useDispatch();
 
-    const history = useHistory();
+  useEffect(() => {
+    dispatch(fetchSeats());
+  }, []);
 
-    const handleChangeSeatsNumber = value => setSeatsNumber(value);
-    const handleChangeCloseSeats = e => setCloseSeats(e.target.checked);
+  const [seatsNumber, setSeatsNumber] = useState("");
+  const [closeSeats, setCloseSeats] = useState(false);
 
-    const handleOnSubmit = ({ seatsNumber, closeSeats }) => {
-        console.log(seatsNumber, closeSeats);
+  const history = useHistory();
 
-        if (seatsNumber >= 5 && closeSeats) {
+  const handleChangeSeatsNumber = (e) => setSeatsNumber(e.target.value);
+  const handleChangeCloseSeats = (e) => setCloseSeats(e.target.checked);
 
-            notification.info({
-                message: `Błąd`,
-                description: `Nie może być ${seatsNumber} miejsc obok siebie. Maksymalna liczba miejsc obok siebie wynosi 5.`,
-                placement: 'bottomRight'
-            });
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
 
-            return;
-        };
-
-        const location = {
-            pathname: '/miejsca',
-            state: {
-                seatsNumber,
-                closeSeats
-            }
-        };
-
-        history.push(location);
+    if (seatsNumber >= 5 && closeSeats) {
+      alert(`Nie może być ${seatsNumber} miejsc obok siebie. Maksymalna liczba miejsc obok siebie wynosi 5.`);
+      return;
     }
 
+    if (Boolean(!seatsNumber)) {
+      alert(`Proszę wybrać liczbę miejsc`);
+      return;
+    }
 
-    return (
-        <div className="wrapper">
-            <Form
-                {...layout}
-                name="basic"
-                form={form}
-                initialValues={{
-                    remember: true,
-                }}
-                onFinish={handleOnSubmit}
-            >
-                <Form.Item
-                    label="Liczba miejsc:"
-                    type="number"
-                    name="seatsNumber"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Proszę wybrać liczbę miejsc',
-                        },
-                    ]}
-                >
-                    <InputNumber min={1} onChange={handleChangeSeatsNumber} value={seatsNumber} />
-                </Form.Item>
+    const location = {
+      pathname: "/miejsca",
+      state: {
+        seatsNumber,
+        closeSeats,
+      },
+    };
 
-                <Form.Item {...tailLayout} name="closeSeats" valuePropName="checked">
-                    <Checkbox onChange={handleChangeCloseSeats}>Czy miejsca mają być obok siebie?</Checkbox>
-                </Form.Item>
+    history.push(location);
+  };
 
-                <Form.Item {...tailLayout}>
-                    <Button type="primary" htmlType="submit">
-                        Wybierz miejsca
-                    </Button>
-                </Form.Item>
-            </Form>
-        </div>
-    );
-}
+  return (
+    <div className="wrapper">
+      <form onSubmit={handleOnSubmit}>
+        <label>
+          Liczba miejsc:
+          <input type="number" value={seatsNumber} onChange={handleChangeSeatsNumber} />
+        </label>
+
+        <label>
+          {" "}
+          Czy miejsca mają być obok siebie?
+          <input type="checkbox" checked={closeSeats} onChange={handleChangeCloseSeats} />
+        </label>
+
+        <button>Rezerwuj</button>
+      </form>
+    </div>
+  );
+};
 
 export default HomePage;

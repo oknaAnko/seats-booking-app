@@ -1,22 +1,13 @@
-import React, { useEffect } from 'react';
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import HomePage from './pages/HomePage';
-import SeatsPage from './pages/SeatsPage';
-import ResultPage from './pages/ResultPage';
+import HomePage from "./pages/HomePage";
+import SeatsPage from "./pages/SeatsPage";
+import ResultPage from "./pages/ResultPage";
 
-import './App.css';
-
-import { fetchSeats } from './app/actions';
-import { useDispatch } from 'react-redux';
+import "./App.css";
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchSeats());
-  }, [dispatch]);
-
   return (
     <Router>
       <div className="App">
