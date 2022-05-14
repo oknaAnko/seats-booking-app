@@ -5,7 +5,7 @@ import HomePage from "./pages/HomePage";
 import SeatsPage from "./pages/SeatsPage";
 import ResultPage from "./pages/ResultPage";
 
-import "./App.css";
+import "./App.scss";
 
 function App() {
   return (
