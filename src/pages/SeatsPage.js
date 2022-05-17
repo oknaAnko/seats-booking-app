@@ -54,30 +54,62 @@ const SeatsPage = () => {
     history.push(location);
   };
 
+  const date = new Date().toLocaleDateString("pl", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
   return (
     <div>
       <div className="background-image">
-        <div className="seats-page-wrapper">
-          <div className="info-container">
-            <h1>Interstellar</h1>
-            <p>Wotek</p>
-            <p>godzina 16:30</p>
+        <div className="background-gradient">
+          <div className="background-circle"></div>
+          <div className="seats-page-wrapper">
+            <section className="info-container container-sm">
+              <div className="row">
+                <div className="col-sm-4">
+                  <div className="card">
+                    <div className="card-body">
+                      <p className="card-title">Tytuł</p>
+                      <p className="card-text fw-bold">Interstellar</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-sm-4">
+                  <div className="card">
+                    <div className="card-body">
+                      <p className="card-title">Dzień</p>
+                      <p className="card-text">{date}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-sm-4">
+                  <div className="card">
+                    <div className="card-body">
+                      <p className="card-title">Godzina</p>
+                      <p className="card-text">16:30</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            {isLoading ? <p>Trwa ładowanie sali</p> : <div className="seats-container">{seatsMatrix}</div>}
+            <ul className="legend-container">
+              <li>
+                <span className="legend"></span>Miejsca dostępne
+              </li>
+              <li>
+                <span className="legend"></span>Miejsca zarezerwowane
+              </li>
+              <li>
+                <span className="legend"></span>Twój wybór
+              </li>
+            </ul>
+            <button className="btn btn-primary btn-legend" type="submit" onClick={handleSeatsSubmit}>
+              Rezerwuj
+            </button>
           </div>
-          {isLoading ? <p>Trwa ładowanie sali</p> : <div className="seats-container">{seatsMatrix}</div>}
-          <ul className="legend-container">
-            <li>
-              <span className="legend"></span>Miejsca dostępne
-            </li>
-            <li>
-              <span className="legend"></span>Miejsca zarezerwowane
-            </li>
-            <li>
-              <span className="legend"></span>Twój wybór
-            </li>
-          </ul>
-          <button className="btn btn-primary btn-legend" type="submit" onClick={handleSeatsSubmit}>
-            Rezerwuj
-          </button>
         </div>
       </div>
     </div>
