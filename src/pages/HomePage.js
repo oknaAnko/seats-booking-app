@@ -44,21 +44,39 @@ const HomePage = () => {
   };
 
   return (
-    <div className="wrapper">
-      <form onSubmit={handleOnSubmit}>
-        <label>
-          Liczba miejsc:
-          <input type="number" value={seatsNumber} onChange={handleChangeSeatsNumber} />
-        </label>
+    <div className="background-image">
+      <div className="wrapper">
+        <form className="mx-auto" onSubmit={handleOnSubmit}>
+          <div className="mb-3">
+            <label htmlFor="inputNr" className="form-label">
+              Liczba miejsc:
+            </label>
 
-        <label>
-          {" "}
-          Czy miejsca mają być obok siebie?
-          <input type="checkbox" checked={closeSeats} onChange={handleChangeCloseSeats} />
-        </label>
-
-        <button>Rezerwuj</button>
-      </form>
+            <input
+              type="number"
+              className="form-control"
+              id="inputNr"
+              value={seatsNumber}
+              onChange={handleChangeSeatsNumber}
+            />
+          </div>
+          <div className="mb-4 form-check">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="gridCheck1"
+              checked={closeSeats}
+              onChange={handleChangeCloseSeats}
+            />
+            <label className="form-check-label" htmlFor="gridCheck1">
+              Czy miejsca mają być obok siebie?
+            </label>
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Rezerwuj
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
