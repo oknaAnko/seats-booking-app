@@ -11,9 +11,9 @@ const OneSeat = ({ id }) => {
     if (!seat.reserved) dispatch(toggleChosenSeats([id]));
   };
 
-  let color = "transparent";
+  let color = "rgb(239, 239, 239)";
   if (seat.reserved) color = "grey";
-  if (seat.chosen) color = "orange";
+  if (seat.chosen) color = "#b7eb2b";
 
   return (
     <div id={id} className="square" style={{ top: seat.cords.x * 40, left: seat.cords.y * 40 }}>

@@ -64,7 +64,6 @@ const SeatsPage = () => {
     <div>
       <div className="background-image">
         <div className="background-gradient">
-          <div className="background-circle"></div>
           <div className="seats-page-wrapper">
             <section className="info-container container-sm">
               <div className="row">
@@ -94,7 +93,11 @@ const SeatsPage = () => {
                 </div>
               </div>
             </section>
+            <div className="background-circle">
+              <p className="screen-text">Ekran</p>
+            </div>
             {isLoading ? <p>Trwa ładowanie sali</p> : <div className="seats-container">{seatsMatrix}</div>}
+
             <ul className="legend-container">
               <li>
                 <span className="legend"></span>Miejsca dostępne

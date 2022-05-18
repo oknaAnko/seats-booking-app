@@ -60,6 +60,7 @@ label {
 .background-circle {
   background-color: #fff;
   border-top: 5px solid gray;
+  box-shadow: inset 0px 4px 3px -3px rgba(50, 50, 50, 0.75);
   position: absolute;
   border-radius: 50%;
   top: 390px;
@@ -83,6 +84,15 @@ label {
   max-width: 600px;
   padding-top: 200px;
   padding-bottom: 50px;
+}
+
+.screen-text {
+  padding-top: 15px;
+  color: #333;
+  text-transform: uppercase;
+  font-size: 12px;
+  z-index: 99;
+  text-align: center;
 }
 
 .card {
@@ -115,12 +125,14 @@ label {
 
 .seat {
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 100%;
+  height: 100%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border: 1px solid black;
+  border-radius: 5%;
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 }
 
 .legend-container {
@@ -142,8 +154,11 @@ li {
   display: inline-block;
   width: 30px;
   height: 30px;
-  border: 1px solid black;
   margin-right: 5px;
+  border: 1px solid black;
+  border-radius: 5%;
+  box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
+  background-color: rgb(239, 239, 239);
 }
 
 li:nth-child(2) .legend {
@@ -151,12 +166,5 @@ li:nth-child(2) .legend {
 }
 
 li:nth-child(3) .legend {
-  background-color: orange;
+  background-color: #b7eb2b;
 }
-
-// .btn-legend {
-//   height: 50px;
-//   width: 230px;
-//   background-color: #fff;
-//   border: 1px solid black;
-// }
