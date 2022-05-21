@@ -168,3 +168,17 @@ li:nth-child(2) .legend {
 li:nth-child(3) .legend {
   background-color: #b7eb2b;
 }
+
+//RESULT PAGE
+.list-group {
+  margin-bottom: 1rem;
+}
+
+.list-group-item {
+  background-color: transparent;
+  font-size: 12px;
+}
+
+.success-text {
+  color: $blue-400;
+}
