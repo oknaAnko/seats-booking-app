@@ -34,6 +34,10 @@
   border-radius: 0.3em;
   box-shadow: 0 0 0 1px hsla(0, 0%, 100%, 0.3) inset, 0 0.5em 1em rgba(0, 0, 0, 0.6);
   text-shadow: 0 1px 1px hsla(0, 0%, 100%, 0.3);
+
+  @media screen and (max-width: 768px) {
+    width: 50%;
+  }
 }
 
 label {
@@ -42,10 +46,22 @@ label {
   font-weight: bold;
   text-shadow: 0px 0px 4px #fff;
   font-size: 16px;
+
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
+
+  @media screen and (max-width: 490px) {
+    font-size: 10px;
+  }
 }
 .form-control {
   display: inline-block;
   width: 53%;
+
+  @media screen and (max-width: 490px) {
+    width: 100%;
+  }
 }
 
 //SEATS PAGE
@@ -229,4 +245,10 @@ li:nth-child(3) .legend {
 
 .success-text {
   color: $blue-400;
+  text-align: center;
+}
+
+.final-text {
+  font-size: 12px;
+  text-align: center;
 }

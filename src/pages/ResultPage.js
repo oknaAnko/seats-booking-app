@@ -19,7 +19,7 @@ const ResultPage = () => {
           <p className="card-text">Wybrałeś miejsca:</p>
           <ul className="list-group list-group-flush">{resultText}</ul>
 
-          <p>Dziękujemy! W razie problemów prosimy o kontakt z działem administracji.</p>
+          <p className="final-text">Dziękujemy! W razie problemów prosimy o kontakt z działem administracji.</p>
         </div>
       </div>
     </div>
