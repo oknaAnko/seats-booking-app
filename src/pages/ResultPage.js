@@ -6,7 +6,7 @@ const ResultPage = () => {
   const chosenSeats = location.state.chosenSeats;
 
   const resultText = chosenSeats.map((seat) => (
-    <li className="list-group-item">
+    <li key={seat.id} className="list-group-item">
       rząd {seat.cords.x}, miejsce {seat.cords.y}
     </li>
   ));
