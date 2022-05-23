@@ -1,11 +1,9 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import mockAxios from 'axios';
-import { seatsReducer } from './app/reducers'
-import * as actions from './app/actions'
-import nock from 'nock/types';
+import { seatsReducer } from './reducers';
+import * as actions from './actions';
+import { types } from './constants';
 
 window.matchMedia = window.matchMedia || function () {
   return {
@@ -27,50 +25,30 @@ describe('Fetch seats async actions', () => {
   })
 
   it('dispatches FETCH_SEATS_SUCCESS action and returns seats on success', async () => {
+    const payload = [
+      {
+        id: 's01',
+        cords: {
+          x: 0,
+          y: 1,
+        },
+        reserved: false,
+        chosen: false,
+      }
+    ];
+
     mockAxios.get.mockImplementationOnce(() =>
       Promise.resolve({
-        data: {
-          seats: [
-            {
-              id: 's01',
-              cords: {
-                x: 0,
-                y: 1,
-              },
-              reserved: false,
-              chosen: false,
-            }
-          ],
-        }
+        data: payload,
       })
     );
 
-    nock('http://localhost:3004')
-      .get('/seats')
-      .reply(200, {
-        seats: [
-          {
-            id: 's01',
-            cords: {
-              x: 0,
-              y: 1,
-            },
-            reserved: false,
-            chosen: false,
-          }
-        ],
-      }
-      )
+    await store.dispatch(actions.fetchSeats());
+    const dispatchedActions = store.getActions()
 
-    await store.dispatch(actions.fetchSeats())
-    const dispatchedAtions = store.getActions()
-    console.log(dispatchedAtions);
-
-    expect(dispatchedAtions[0]).toEqual({ type: actions.FETCH_SEATS_REQUEST })
-    expect(dispatchedAtions[1]).toEqual({ type: actions.FETCH_SEATS_SUCCESS })
-
+    expect(dispatchedActions[0]).toEqual({ type: types.FETCH_SEATS_REQUEST })
+    expect(dispatchedActions[1]).toEqual({ type: types.FETCH_SEATS_SUCCESS, payload })
   })
-
 });
 
 
@@ -83,13 +61,12 @@ describe('Reducers and actions', () => {
       seats: [],
       error: null
     });
-
   });
 
 
   it('should handle FETCH_SEATS_REQUEST', () => {
     const requestAction = {
-      type: actions.FETCH_SEATS_REQUEST,
+      type: types.FETCH_SEATS_REQUEST,
     }
     const initialState = { isLoading: false, seats: [], error: null }
 
@@ -98,13 +75,12 @@ describe('Reducers and actions', () => {
       seats: [],
       error: null
     });
-
   });
 
 
   it('should handle FETCH_SEATS_FAIL', () => {
     const failAction = {
-      type: actions.FETCH_SEATS_FAIL,
+      type: types.FETCH_SEATS_FAIL,
       payload: "error",
     }
     const initialState = { isLoading: false, seats: [], error: null }
@@ -114,13 +90,12 @@ describe('Reducers and actions', () => {
       seats: [],
       error: "error"
     })
-
   });
 
 
   it('should handle TOGGLE_CHOOSEN_SEATS', () => {
     const toggleChosenSeatsAction = {
-      type: actions.TOGGLE_CHOOSEN_SEATS,
+      type: types.TOGGLE_CHOSEN_SEATS,
       payload: ['s01']
     }
     const state = {
@@ -154,13 +129,12 @@ describe('Reducers and actions', () => {
       ],
       error: null
     });
-
   });
 
 
   it('should handle RESERVE_SEATS', () => {
     const reserveSeatsAction = {
-      type: actions.RESERVE_SEATS,
+      type: types.RESERVE_SEATS,
       payload: ['s01']
     }
     const state = {
@@ -194,7 +168,5 @@ describe('Reducers and actions', () => {
       ],
       error: null
     });
-
   });
-
 });
