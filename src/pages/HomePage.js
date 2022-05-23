@@ -9,23 +9,16 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(fetchSeats());
-  }, []);
+  }, [dispatch]);
 
   const [seatsNumber, setSeatsNumber] = useState("");
-  const [closeSeats, setCloseSeats] = useState(false);
 
   const history = useHistory();
 
   const handleChangeSeatsNumber = (e) => setSeatsNumber(e.target.value);
-  const handleChangeCloseSeats = (e) => setCloseSeats(e.target.checked);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-
-    if (seatsNumber >= 5 && closeSeats) {
-      alert(`Nie może być ${seatsNumber} miejsc obok siebie. Maksymalna liczba miejsc obok siebie wynosi 5.`);
-      return;
-    }
 
     if (Boolean(!seatsNumber)) {
       alert(`Proszę wybrać liczbę miejsc`);
@@ -36,7 +29,6 @@ const HomePage = () => {
       pathname: "/miejsca",
       state: {
         seatsNumber,
-        closeSeats,
       },
     };
 
@@ -59,18 +51,6 @@ const HomePage = () => {
               value={seatsNumber}
               onChange={handleChangeSeatsNumber}
             />
-          </div>
-          <div className="mb-4 form-check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              id="gridCheck1"
-              checked={closeSeats}
-              onChange={handleChangeCloseSeats}
-            />
-            <label className="form-check-label" htmlFor="gridCheck1">
-              Czy miejsca mają być obok siebie?
-            </label>
           </div>
           <button type="submit" className="btn btn-primary">
             Rezerwuj
